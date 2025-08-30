@@ -67,7 +67,7 @@ try:
     fatality_rate = df["Num_Killed"].sum() / df["Total_Crashes"].sum()
     speed_violation_rate = (df["SPV"].sum() / df["Total_Crashes"].sum()) * 100
     driving_under_influence_rate = (df["DAD"].sum() / df["Total_Crashes"].sum()) * 100
-    vehicle_involved_rate = df["Total_Vehicles_Involved"].mean()
+    total_deaths = df["Num_Killed"].sum()
 
     # Display KPIs
     col1, col2, col3 = st.columns(3)
@@ -78,7 +78,7 @@ try:
     col4, col5, col6 = st.columns(3)
     col4.metric("Speed Violation Rate", f"{speed_violation_rate:.2f}%")
     col5.metric("Driving Under Influence Rate", f"{driving_under_influence_rate:.2f}%")
-    col6.metric("Vehicle Involved Rate", f"{vehicle_involved_rate:.2f}")
+    col6.metric("Total Deaths", total_deaths)
 
     #st.write("Total Crashes Rate by Quarter:")
     #st.write(total_crashes_rate)
