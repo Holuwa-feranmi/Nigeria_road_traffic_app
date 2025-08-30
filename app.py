@@ -191,7 +191,7 @@ try:
 
     percentage_ftq = (ftq_crashes / total_crashes) * 100
 
-    st.header("How safe are vehicles on the road?")
+    st.header("6. How safe are vehicles on the road?")
 
     st.write(f"Based on the data, **{ftq_crashes}** crashes were caused by faulty vehicles (`FTQ`). This represents approximately **{percentage_ftq:.2f}%** of the total **{total_crashes}** crashes recorded between 2020 and 2024.")
 
