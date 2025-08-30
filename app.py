@@ -158,7 +158,11 @@ try:
     # --- Display the results using Streamlit ---
     st.header("Main Reason for Crashes")
 
-    st.write(f"Based on the data, the main reason for crashes is **{main_reason['Reason']}** with a total of **{main_reason['Count']}** incidents. This is followed by Speed Violation (SPV) and Faulty Vehicle (FTQ).")
+    # Get the top reasons for crashes
+    top_reasons = factors_df.sort_values(by='Count', ascending=False).head(5)
+
+    # Display the top reasons in a table
+    st.write(top_reasons)
 
     # Create the Altair bar chart
     chart_4 = alt.Chart(factors_df).mark_bar().encode(
@@ -168,7 +172,9 @@ try:
     ).properties(
         title='Contribution of Various Factors to Road Crashes'
     )
+
     st.write(chart_4, use_container_width=True)
+
 
     st.header("5.Which quarter has the highest number of crashes?")
 
@@ -193,25 +199,27 @@ try:
 
     st.header("6. How safe are vehicles on the road?")
 
-    st.write(f"Based on the data, **{ftq_crashes}** crashes were caused by faulty vehicles (`FTQ`). This represents approximately **{percentage_ftq:.2f}%** of the total **{total_crashes}** crashes recorded between 2020 and 2024.")
-
-    st.write("This indicates that vehicle maintenance is a significant contributing factor to road accidents.")
-
-    # Create and display the Altair bar chart
-    chart_data = pd.DataFrame({
-        'Reason': ['Faulty Vehicles', 'All Other Crashes'],
-        'Count': [ftq_crashes, total_crashes - ftq_crashes]
+    # Create a dataframe for the data
+    vehicle_safety_data = pd.DataFrame({
+        'Category': ['Faulty Vehicles', 'All Other Crashes'],
+        'Count': [ftq_crashes, total_crashes - ftq_crashes],
+        'Percentage': [percentage_ftq, 100 - percentage_ftq]
     })
 
-    chart_6 = alt.Chart(chart_data).mark_bar().encode(
-        x=alt.X('Reason', sort=None, axis=alt.Axis(title='Cause')),
+    # Display the data in a table
+    st.write(vehicle_safety_data)
+
+    # Create and display the Altair bar chart
+    chart_6 = alt.Chart(vehicle_safety_data).mark_bar().encode(
+        x=alt.X('Category', sort=None, axis=alt.Axis(title='Cause')),
         y=alt.Y('Count', axis=alt.Axis(title='Number of Crashes')),
-        tooltip=['Reason', 'Count']
+        tooltip=['Category', 'Count', 'Percentage']
     ).properties(
         title='Comparison of Crashes Caused by Faulty Vehicles'
     )
 
     st.write(chart_6, use_container_width=True)
+
 
 
 
