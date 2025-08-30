@@ -127,7 +127,7 @@ try:
     )
     st.write(chart_2, use_container_width=True)
 
-    st.header("3. Calculate the correlation between DAD and Total crashes")
+    st.header("3. Which state recorded the highest number of crashes during the entire period?")
     state_crashes = df.groupby('State')['Total_Crashes'].sum().reset_index()
 
     # Sort the results in descending order and get the top 15 states
@@ -147,7 +147,7 @@ try:
     st.write(chart_3, use_container_width=True)
 
 
-    st.header("3. What is the main reason for crashes? Is it speeding, dangerous driving, or something else? This information can guide efforts to prevent future accidents.")
+    st.header("4. What is the main reason for crashes? Is it speeding, dangerous driving, or something else? This information can guide efforts to prevent future accidents.")
     crash_factors = df[['SPV', 'DAD', 'PWR', 'FTQ', 'Other_Factors']].sum()
 
     # Convert the Series to a DataFrame for Altair plotting
@@ -170,6 +170,7 @@ try:
     )
     st.write(chart_4, use_container_width=True)
 
+    st.header("5.Which quarter has the highest number of crashes?")
 
     quarterly_crashes = df.groupby('Quarter')['Total_Crashes'].sum().reset_index()
     st.write(quarterly_crashes)
